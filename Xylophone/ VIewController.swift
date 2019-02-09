@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import AVFoundation // Audio Video
 
 class ViewController: UIViewController{
     
+    
+    var player : AVAudioPlayer? // player functiom
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +21,19 @@ class ViewController: UIViewController{
 
 
     @IBAction func notePressed(_ sender: UIButton) {
-        if(sender.tag == 1){ // sender  is the button that is being pressed
-            print("play middle C")
-        } else if (sender.tag == 2){
-            print("Play D note")
+        let url = Bundle.main.url(forResource: "note1", withExtension: "wav")! // this the path to our audio file
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            guard let player = player else { return }
+            
+            player.prepareToPlay()
+            player.play()
+        } catch let error as Error{
+            print(error.localizedDescription)
         }
+        
+        
         
         
     }
