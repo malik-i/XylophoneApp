@@ -23,7 +23,8 @@ class ViewController: UIViewController , AVAudioPlayerDelegate{
 
     @IBAction func notePressed(_ sender: UIButton) {
         
-        var selectedSoundFileName : String = soundArray[sender.tag] // recall that each button has an associated interger tag, so we made use of the feature in this array!
+        var selectedSoundFileName : String = soundArray[sender.tag - 1] // recall that each button has an associated interger tag, so we made use of the feature in this array!
+        print(selectedSoundFileName)
         playSound()
 
     }
