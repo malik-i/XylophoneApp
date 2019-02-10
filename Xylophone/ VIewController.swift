@@ -9,10 +9,11 @@
 import UIKit
 import AVFoundation // Audio Video
 
-class ViewController: UIViewController{
+class ViewController: UIViewController , AVAudioPlayerDelegate{
     
     
-    var player : AVAudioPlayer? // player functiom
+    var audioPlayer : AVAudioPlayer!
+    let soundArray = ["note1", "note2", "note3", "note4", "note5", "note6", "note7"] // created a file array containg all the audio files
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,23 +22,24 @@ class ViewController: UIViewController{
 
 
     @IBAction func notePressed(_ sender: UIButton) {
-        let url = Bundle.main.url(forResource: "note1", withExtension: "wav")! // this the path to our audio file
         
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            guard let player = player else { return }
-            
-            player.prepareToPlay()
-            player.play()
-        } catch let error as Error{
-            print(error.localizedDescription)
-        }
-        
-        
-        
-        
+        var selectedSoundFileName : String = soundArray[sender.tag] // recall that each button has an associated interger tag, so we made use of the feature in this array!
+        playSound()
+
     }
     
+    func playSound(){
+        let soundURL = Bundle.main.url(forResource: "note1" , withExtension: "wav") // creating a path to out file name
+        
+        do { // the the do is what you are trying to do
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+        }
+        catch{ // catch the action that occurs if an error occurs
+            print(error)
+        }
+        
+        audioPlayer.play() // this plays the audio
+    }
   
 
 }
